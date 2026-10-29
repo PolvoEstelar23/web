@@ -1,0 +1,9 @@
+<!-- templates/core/error.html -->
+{% extends "base/base.html" %}
+
+{% block title %}Error{% endblock title %}
+
+{% block content %}
+<div class="alert alert-danger">{{ error }}</div>
+<a href="{% url 'core:listbank' %}" class="btn btn-secondary">Volver a bancos</a>
+{% endblock content %}
