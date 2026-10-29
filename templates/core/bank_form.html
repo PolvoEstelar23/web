@@ -1,0 +1,32 @@
+<!-- templates/core/bank_form.html -->
+
+{% extends "base/base.html" %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input id="name" name="name" type="text" maxlength="32" class="form-control"
+               value="{% if data %}{{ data.name }}{% else %}{{ bank.name }}{% endif %}" required>
+    </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Dirección</label>
+        <input id="address" name="address" type="text" maxlength="64" class="form-control"
+               value="{% if data %}{{ data.address }}{% else %}{{ bank.address }}{% endif %}" required>
+    </div>
+    <div class="form-check mb-3">
+        <input id="status" name="status" type="checkbox" class="form-check-input"
+               {% if data.status or bank.status or not data and not bank %}checked{% endif %}>
+        <label for="status" class="form-check-label">Activo</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'core:listbank' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock content %}
